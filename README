@@ -1,106 +1,96 @@
-Appcelerator Titanium Mobile Module Project
-===========================================
+GMImagePicker module for Appcelerator Titanium
+==============================================
 
-This is a skeleton Titanium Mobile Mobile module project.
+Photo Picker supporting multiple selections and UI customizations. Designed for iOS 8 with Photo framework ( PhotoKit )
+ 
+### Screenshots
 
+![Screenshot](GMImagePickerDemo.gif "Screenshot")  
 
-MODULE NAMING
--------------
-
-Choose a unique module id for your module.  This ID usually follows a namespace
-convention using DNS notation.  For example, com.appcelerator.module.test.  This
-ID can only be used once by all public modules in Titanium.
-
-
-GET STARTED
-------------
-
-1. Edit manifest with the appropriate details about your module.
-2. Edit LICENSE to add your license details.
-3. Place any assets (such as PNG files) that are required anywhere in the module folder.
-4. Edit the timodule.json and configure desired settings.
-5. Code and build.
-
-
-DOCUMENTATION FOR YOUR MODULE
------------------------------
-
-You should provide at least minimal documentation for your module in `documentation` folder using the Markdown syntax.
-
-For more information on the Markdown syntax, refer to this documentation at:
-
-<http://daringfireball.net/projects/markdown/>
+### Features
+1. Allows selection of multiple photos and videos, even from different albums.
+2. Optional single selection mode.
+3. Optional camera access.
+4. Optional bottom toolbar with information about users selection.
+5. Full and customizable acces to smart collections(**Favorites**, **Slo-mo** or **Recently deleted**). 
+6. Filter by collections & albums.
+7. Filter by media type.
+8. Customizable colors, fonts and labels to ease branding of the App.
+9. By default mimics UIImagePickerController in terms of features, appearance and behaviour.
+10. Dynamically sized grid view, easy to customize and fully compatible with iPhone 6/6+ and iPad.
+11. Works in landscape orientation and allow screen rotation!
+12. It can be used as Popover on iPad, with customizable size.
+13. Fast & small memory footprint powered by PHCachingImageManager.
+14. Full adoption of new iOS8 **PhotoKit**. Returns and array of PHAssets.
 
 
-TEST HARNESS EXAMPLE FOR YOUR MODULE
-------------------------------------
+## Usage
 
-The `example` directory contains a skeleton application test harness that can be
-used for testing and providing an example of usage to the users of your module.
+```xml
+<ios>
+    <plist>
+        <dict>
+            <key>NSPhotoLibraryUsageDescription</key>
+            <string>Access media in Photos</string>
+        </dict>
+    </plist>
+</ios>
+```
 
+```javascript
 
-BUILDING YOUR MODULE
---------------------
+var picker = require('ti.gmimagepicker');
+var sv;
 
-Simply run `titanium build --platform <name of platform> --build-type production --dir /path/to/module`.
-You can omit the --dir option if your working directory is in the module's project directory.
-
-
-INSTALL YOUR MODULE
--------------------
-
-Mac OS X
---------
-Copy the distribution zip file into the `~/Library/Application Support/Titanium` folder
-
-Linux
------
-Copy the distribution zip file into the `~/.titanium` folder
-
-Windows
--------
-Copy the distribution zip file into the `C:\ProgramData\Titanium` folder
-
-
-REGISTER YOUR MODULE
---------------------
-
-Register your module with your application by editing `tiapp.xml` and adding your module.
-Example:
-
-<modules>
-	<module version="0.1">ti.gmimageicker</module>
-</modules>
-
-When you run your project, the compiler will combine your module along with its dependencies
-and assets into the application.
+(function() {
+	var w = Ti.UI.createWindow({ layout: 'vertical' });
+	
+		var btn = Ti.UI.createButton({ title: 'Pick Photos', backgroundColor: 'blue', tintColor: 'white', width: 120, top: 60 });
+			btn.addEventListener('click', showGMImagePicker);
+		
+		sv = Ti.UI.createScrollableView({ showPagingControl: true, backgroundColor: 'grey' });
+		
+	w.add(btn);
+	w.add(sv);
+	w.open();	
+})();
 
 
-USING YOUR MODULE IN CODE
--------------------------
+function showGMImagePicker() {
+	sv.removeAllChildren();
+	
+	picker.openPhotoGallery({
+		maxSelectablePhotos: 10,
+		// allowMultiple: false, // default is true
+	    success: function (e) {
+	        Ti.API.error('success: ' + JSON.stringify(e));
+	        renderPhotos(e.media);
+	    },
+	    cancel: function (e) {
+	    	Ti.API.error('cancel: ' + JSON.stringify(e));
+	    },
+	    error: function (e) {
+	        Ti.API.error('error: ' + JSON.stringify(e));
+	    }
+	});
+}
 
-To use your module in code, you will need to require it.
+function renderPhotos(media) {
+	var views = [];
+    
+    for (var i=0; i < media.length; i++) {
+    	views.push( Ti.UI.createImageView({ image: media[i], width: '100%', height: Ti.UI.SIZE }) );
+	};
+	
+	sv.setViews(views);
+}
 
-For example,
+```
 
-	var my_module = require('ti.gmimageicker');
-	my_module.foo();
-
-
-TESTING YOUR MODULE
--------------------
-
-To test with the script, execute:
-
-	titanium run --dir=YOURMODULEDIR
-
-This will execute the app.js in the example folder as a Titanium application.
+#### Minimum Requirement
+Xcode 6 and iOS 8.
 
 
-DISTRIBUTING YOUR MODULE
--------------------------
+### License
 
-You can choose to manually distribute your module distribution zip file or through the Titanium Marketplace!
-
-
-Cheers!
+Copyright (c) 2016 Minh Nguyen
