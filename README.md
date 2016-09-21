@@ -2,6 +2,8 @@ GMImagePicker module for Appcelerator Titanium
 ==============================================
 
 Photo Picker supporting multiple selections and UI customizations. Designed for iOS 8 with Photo framework ( PhotoKit )
+
+https://github.com/guillermomuntaner/GMImagePicker
  
 ### Screenshots
 
