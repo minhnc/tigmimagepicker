@@ -2,7 +2,7 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0
+version: 1.0.0
 apiversion: 2
 architectures: armv7 arm64 i386 x86_64
 description: Multiple selection gallery for Titanium using GMImagePicker
@@ -12,7 +12,7 @@ copyright: 2016
 
 # these should not be edited
 name: TiGMImagePicker
-moduleid: ti.gmimageicker
+moduleid: ti.gmimagepicker
 guid: db2c80c4-3948-4006-b3f7-b3c46dcde744
 platform: iphone
 minsdk: 5.4.0.GA

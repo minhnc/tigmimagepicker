@@ -1,11 +1,11 @@
 /**
  * This is a generated file. Do not edit or your changes will be lost
  */
-#import "TiGmimageickerModuleAssets.h"
+#import "TiGmimagepickerModuleAssets.h"
 
 extern NSData* filterDataInRange(NSData* thedata, NSRange range);
 
-@implementation TiGmimageickerModuleAssets
+@implementation TiGmimagepickerModuleAssets
 
 - (NSData*) moduleAsset
 {

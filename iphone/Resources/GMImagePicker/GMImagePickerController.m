@@ -9,6 +9,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "GMImagePickerController.h"
 #import "GMAlbumsViewController.h"
+#import "TiBundle.h"
+
 @import Photos;
 
 @interface GMImagePickerController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>
@@ -29,7 +31,8 @@
         _allowsMultipleSelection = YES;
         _confirmSingleSelection = NO;
         _showCameraButton = NO;
-        
+        _arrangeSmartCollectionsFirst = NO;
+       
         // Grid configuration:
         _colsInPortrait = 3;
         _colsInLandscape = 5;
@@ -60,12 +63,10 @@
         _pickerBoldFontName = @"HelveticaNeue-Bold";
         _pickerFontNormalSize = 14.0f;
         _pickerFontHeaderSize = 17.0f;
-        
-        _navigationBarBackgroundColor = [UIColor whiteColor];
+       
         _navigationBarTextColor = [UIColor darkTextColor];
         _navigationBarTintColor = [UIColor darkTextColor];
         
-        _toolbarBarTintColor = [UIColor whiteColor];
         _toolbarTextColor = [UIColor darkTextColor];
         _toolbarTintColor = [UIColor darkTextColor];
         
@@ -84,12 +85,14 @@
     self.view.backgroundColor = _pickerBackgroundColor;
 
     _navigationController.toolbar.translucent = YES;
+    _navigationController.toolbar.backgroundColor = _toolbarBackgroundColor;
     _navigationController.toolbar.barTintColor = _toolbarBarTintColor;
     _navigationController.toolbar.tintColor = _toolbarTintColor;
-    [(UIView*)[_navigationController.toolbar.subviews objectAtIndex:0] setAlpha:0.75f];  // URGH - I know!
     
     _navigationController.navigationBar.backgroundColor = _navigationBarBackgroundColor;
+    _navigationController.navigationBar.barTintColor = _navigationBarBarTintColor;
     _navigationController.navigationBar.tintColor = _navigationBarTintColor;
+   
     NSDictionary *attributes;
     if (_useCustomFontForNavigationBar) {
         attributes = @{NSForegroundColorAttributeName : _navigationBarTextColor,
@@ -116,8 +119,6 @@
     _navigationController.delegate = self;
     
     _navigationController.navigationBar.translucent = YES;
-    [_navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    _navigationController.navigationBar.shadowImage = [UIImage new];
     
     [_navigationController willMoveToParentViewController:self];
     [_navigationController.view setFrame:self.view.frame];
@@ -147,13 +148,13 @@
     
     if (!self.allowsMultipleSelection) {
         if (self.confirmSingleSelection) {
-            NSString *message = self.confirmSingleSelectionPrompt ? self.confirmSingleSelectionPrompt : [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.confirm.message",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Do you want to select the image you tapped on?")];
+            NSString *message = self.confirmSingleSelectionPrompt ? self.confirmSingleSelectionPrompt : [NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.confirm.message",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Do you want to select the image you tapped on?")];
             
-            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.confirm.title",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Are You Sure?")]
+            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.confirm.title",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Are You Sure?")]
                                         message:message
                                        delegate:self
-                              cancelButtonTitle:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.action.no",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"No")]
-                              otherButtonTitles:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.action.yes",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Yes")], nil] show];
+                              cancelButtonTitle:[NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.action.no",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"No")]
+                              otherButtonTitles:[NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.action.yes",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Yes")], nil] show];
         } else {
             [self finishPickingAssets:self];
         }
@@ -248,15 +249,15 @@
     NSInteger nVideos = [self.selectedAssets filteredArrayUsingPredicate:videoPredicate].count;
     
     if (nImages > 0 && nVideos > 0) {
-        return [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.selection.multiple-items",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Items Selected" ), @(nImages + nVideos)];
+        return [NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.selection.multiple-items",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Items Selected" ), @(nImages + nVideos)];
     } else if (nImages > 1) {
-        return [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.selection.multiple-photos",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Photos Selected"), @(nImages)];
+        return [NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.selection.multiple-photos",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Photos Selected"), @(nImages)];
     } else if (nImages == 1) {
-        return NSLocalizedStringFromTableInBundle(@"picker.selection.single-photo",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"1 Photo Selected" );
+        return TINSLocalizedStringFromTableInBundle(@"picker.selection.single-photo",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"1 Photo Selected" );
     } else if (nVideos > 1) {
-        return [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.selection.multiple-videos",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Videos Selected"), @(nVideos)];
+        return [NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.selection.multiple-videos",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Videos Selected"), @(nVideos)];
     } else if (nVideos == 1) {
-        return NSLocalizedStringFromTableInBundle(@"picker.selection.single-video",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"1 Video Selected");
+        return TINSLocalizedStringFromTableInBundle(@"picker.selection.single-video",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"1 Video Selected");
     } else {
         return nil;
     }

@@ -1,39 +1,45 @@
-// This is a test harness for your module
-// You should do something interesting in this harness
-// to test out the module and to provide instructions
-// to users on how to use it by example.
+var picker = require('ti.gmimagepicker');
+var sv;
+
+(function() {
+	var w = Ti.UI.createWindow({ layout: 'vertical' });
+	
+		var btn = Ti.UI.createButton({ title: 'Pick Photos', backgroundColor: 'blue', tintColor: 'white', width: 120, top: 60 });
+			btn.addEventListener('click', showGMImagePicker);
+		
+		sv = Ti.UI.createScrollableView({ showPagingControl: true, backgroundColor: 'grey' });
+		
+	w.add(btn);
+	w.add(sv);
+	w.open();	
+})();
 
 
-// open a single window
-var win = Ti.UI.createWindow({
-	backgroundColor:'white'
-});
-var label = Ti.UI.createLabel();
-win.add(label);
-win.open();
-
-// TODO: write your module tests here
-var tigmimagepicker = require('ti.gmimageicker');
-Ti.API.info("module is => " + tigmimagepicker);
-
-label.text = tigmimagepicker.example();
-
-Ti.API.info("module exampleProp is => " + tigmimagepicker.exampleProp);
-tigmimagepicker.exampleProp = "This is a test value";
-
-if (Ti.Platform.name == "android") {
-	var proxy = tigmimagepicker.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
+function showGMImagePicker() {
+	sv.removeAllChildren();
+	
+	picker.openPhotoGallery({
+		maxSelectablePhotos: 10,
+		// allowMultiple: false, // default is true
+	    success: function (e) {
+	        Ti.API.error('success: ' + JSON.stringify(e));
+	        renderPhotos(e.media);
+	    },
+	    cancel: function (e) {
+	    	Ti.API.error('cancel: ' + JSON.stringify(e));
+	    },
+	    error: function (e) {
+	        Ti.API.error('error: ' + JSON.stringify(e));
+	    }
 	});
-
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
 }
 
+function renderPhotos(media) {
+	var views = [];
+    
+    for (var i=0; i < media.length; i++) {
+    	views.push( Ti.UI.createImageView({ image: media[i], width: '100%', height: Ti.UI.SIZE }) );
+	};
+	
+	sv.setViews(views);
+}

@@ -11,6 +11,7 @@
 #import "GMGridViewCell.h"
 #import "GMGridViewController.h"
 #import "GMAlbumsViewCell.h"
+#import "TiBundle.h"
 
 @import Photos;
 
@@ -60,7 +61,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     // Buttons
     NSDictionary* barButtonItemAttributes = @{NSFontAttributeName: [UIFont fontWithName:self.picker.pickerFontName size:self.picker.pickerFontHeaderSize]};
 
-    NSString *cancelTitle = self.picker.customCancelButtonTitle ? self.picker.customCancelButtonTitle : NSLocalizedStringFromTableInBundle(@"picker.navigation.cancel-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Cancel");
+    NSString *cancelTitle = self.picker.customCancelButtonTitle ? self.picker.customCancelButtonTitle : TINSLocalizedStringFromTableInBundle(@"picker.navigation.cancel-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Cancel");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:cancelTitle
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self.picker
@@ -71,7 +72,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     }
 
     if (self.picker.allowsMultipleSelection) {
-        NSString *doneTitle = self.picker.customDoneButtonTitle ? self.picker.customDoneButtonTitle : NSLocalizedStringFromTableInBundle(@"picker.navigation.done-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Done");
+        NSString *doneTitle = self.picker.customDoneButtonTitle ? self.picker.customDoneButtonTitle : TINSLocalizedStringFromTableInBundle(@"picker.navigation.done-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Done");
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:doneTitle
                                                                                   style:UIBarButtonItemStyleDone
                                                                                  target:self.picker
@@ -89,7 +90,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     
     // Title
     if (!self.picker.title) {
-        self.title = NSLocalizedStringFromTableInBundle(@"picker.navigation.title",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Navigation bar default title");
+        self.title = TINSLocalizedStringFromTableInBundle(@"picker.navigation.title",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Navigation bar default title");
     } else {
         self.title = self.picker.title;
     }
@@ -98,17 +99,21 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     self.collectionsFetchResults = @[topLevelUserCollections, smartAlbums];
-    self.collectionsLocalizedTitles = @[NSLocalizedStringFromTableInBundle(@"picker.table.user-albums-header",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Albums"), NSLocalizedStringFromTableInBundle(@"picker.table.smart-albums-header",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Smart Albums")];
-    
+   
+    if(self.picker.arrangeSmartCollectionsFirst == YES)
+    {
+        self.collectionsLocalizedTitles = @[TINSLocalizedStringFromTableInBundle(@"picker.table.smart-albums-header",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Smart Albums"),
+           TINSLocalizedStringFromTableInBundle(@"picker.table.user-albums-header",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Albums")];
+    }
+    else
+    {
+        self.collectionsLocalizedTitles = @[TINSLocalizedStringFromTableInBundle(@"picker.table.user-albums-header",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Albums"), TINSLocalizedStringFromTableInBundle(@"picker.table.smart-albums-header",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Smart Albums")];
+    }
+   
     [self updateFetchResults];
     
     // Register for changes
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-    {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
 }
 
 - (void)dealloc
@@ -147,7 +152,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
         options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsWithOptions:options];
         [allFetchResultArray addObject:assetsFetchResult];
-        [allFetchResultLabel addObject:NSLocalizedStringFromTableInBundle(@"picker.table.all-photos-label",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"All photos")];
+        [allFetchResultLabel addObject:TINSLocalizedStringFromTableInBundle(@"picker.table.all-photos-label",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"All photos")];
     }
     
     //User albums:
@@ -195,9 +200,17 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
             }
         }
     }
-    
-    self.collectionsFetchResultsAssets= @[allFetchResultArray,userFetchResultArray,smartFetchResultArray];
-    self.collectionsFetchResultsTitles= @[allFetchResultLabel,userFetchResultLabel,smartFetchResultLabel];
+   
+    if(self.picker.arrangeSmartCollectionsFirst == YES)
+    {       
+        self.collectionsFetchResultsAssets = @[allFetchResultArray,smartFetchResultArray, userFetchResultArray];
+        self.collectionsFetchResultsTitles = @[allFetchResultLabel, smartFetchResultLabel, userFetchResultLabel];
+    }
+    else
+    {
+        self.collectionsFetchResultsAssets = @[allFetchResultArray, userFetchResultArray,smartFetchResultArray];
+        self.collectionsFetchResultsTitles = @[allFetchResultLabel, userFetchResultLabel,smartFetchResultLabel];
+    }
 }
 
 
@@ -318,9 +331,9 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
         }
     } else {
         [cell setVideoLayout:NO];
-        cell.imageView3.image = [UIImage imageNamed:@"GMEmptyFolder"];
-        cell.imageView2.image = [UIImage imageNamed:@"GMEmptyFolder"];
-        cell.imageView1.image = [UIImage imageNamed:@"GMEmptyFolder"];
+        cell.imageView3.image = [UIImage imageNamed:@"GMEmptyFolder" inBundle:TIBundle compatibleWithTraitCollection:nil];
+        cell.imageView2.image = [UIImage imageNamed:@"GMEmptyFolder" inBundle:TIBundle compatibleWithTraitCollection:nil];
+        cell.imageView1.image = [UIImage imageNamed:@"GMEmptyFolder" inBundle:TIBundle compatibleWithTraitCollection:nil];
     }
     
     return cell;
@@ -350,7 +363,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
 {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.contentView.backgroundColor = [UIColor clearColor];
-    header.backgroundView.backgroundColor = [UIColor clearColor];
+    header.backgroundView.backgroundColor = self.picker.pickerBackgroundColor;
 
     // Default is a bold font, but keep this styled as a normal font
     header.textLabel.font = [UIFont fontWithName:self.picker.pickerFontName size:self.picker.pickerFontNormalSize];

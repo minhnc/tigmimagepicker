@@ -10,6 +10,7 @@
 #import "GMImagePickerController.h"
 #import "GMAlbumsViewController.h"
 #import "GMGridViewCell.h"
+#import "TiBundle.h"
 
 @import Photos;
 
@@ -128,11 +129,6 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
     self.imageManager = [[PHCachingImageManager alloc] init];
     [self resetCachedAssets];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-    {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -206,7 +202,7 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
 - (void)setupButtons
 {
     if (self.picker.allowsMultipleSelection) {
-        NSString *doneTitle = self.picker.customDoneButtonTitle ? self.picker.customDoneButtonTitle : NSLocalizedStringFromTableInBundle(@"picker.navigation.done-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Done");
+        NSString *doneTitle = self.picker.customDoneButtonTitle ? self.picker.customDoneButtonTitle : TINSLocalizedStringFromTableInBundle(@"picker.navigation.done-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Done");
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:doneTitle
                                                                                   style:UIBarButtonItemStyleDone
                                                                                  target:self.picker
@@ -214,7 +210,7 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
         
         self.navigationItem.rightBarButtonItem.enabled = (self.picker.autoDisableDoneButton ? self.picker.selectedAssets.count > 0 : TRUE);
     } else {
-        NSString *cancelTitle = self.picker.customCancelButtonTitle ? self.picker.customCancelButtonTitle : NSLocalizedStringFromTableInBundle(@"picker.navigation.cancel-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Cancel");
+        NSString *cancelTitle = self.picker.customCancelButtonTitle ? self.picker.customCancelButtonTitle : TINSLocalizedStringFromTableInBundle(@"picker.navigation.cancel-button",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class], @"Cancel");
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:cancelTitle
                                                                                   style:UIBarButtonItemStyleDone
                                                                                  target:self.picker

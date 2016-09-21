@@ -137,10 +137,12 @@ static CGSize const kPopoverContentSize = {480, 720};
  *
  * - pickerBackgroundColor: The colour for all backgrounds; behind the table and cells. Defaults to [UIColor whiteColor]
  * - pickerTextColor: The color for text in the views. This needs to work with pickerBackgroundColor! Default of darkTextColor
- * - toolbarBarTintColor: The color for the background tint of the toolbar
+ * - toolbarBackgroundColor: The background color of the toolbar. Defaults to nil.
+ * - toolbarBarTintColor: The color for the background tint of the toolbar. Defaults to nil.
  * - toolbarTextColor: The color of the text on the toolbar
  * - toolbarTintColor: The tint colour used for any buttons on the toolbar
- * - navigationBarBackgroundColor: The background of the navigation bar. Defaults to [UIColor whiteColor]
+ * - navigationBarBackgroundColor: The background of the navigation bar. Defaults to nil.
+ * - navigationBarBarTintColor: The color for the background tint of the navigation bar. Defaults to nil.
  * - navigationBarTextColor: The color for the text in the navigation bar. Defaults to [UIColor darkTextColor]
  * - navigationBarTintColor: The tint color used for any buttons on the navigation Bar
  * - pickerFontName: The font to use everywhere. Defaults to HelveticaNeue. It is advised if you set this to check, and possibly set, appropriately the custom font sizes. For font information, check http://www.iosfonts.com/
@@ -149,13 +151,16 @@ static CGSize const kPopoverContentSize = {480, 720};
  * - pickerFontHeaderSize: The size of the custom font for album names. Defaults to 17.0f
  * - pickerStatusBarsStyle: On iPhones this will matter if custom navigation bar colours are being used. Defaults to UIStatusBarStyleDefault
  * - useCustomFontForNavigationBar: True to use the custom font (or it's default) in the navigation bar, false to leave to iOS Defaults.
+ * - arrangeSmartCollectionsFirst: True will put the users smart collections above their albums, false will set it opposite. Default is NO.
  */
 @property (nonatomic, strong) UIColor *pickerBackgroundColor;
 @property (nonatomic, strong) UIColor *pickerTextColor;
+@property (nonatomic, strong) UIColor *toolbarBackgroundColor;
 @property (nonatomic, strong) UIColor *toolbarBarTintColor;
 @property (nonatomic, strong) UIColor *toolbarTextColor;
 @property (nonatomic, strong) UIColor *toolbarTintColor;
 @property (nonatomic, strong) UIColor *navigationBarBackgroundColor;
+@property (nonatomic, strong) UIColor *navigationBarBarTintColor;
 @property (nonatomic, strong) UIColor *navigationBarTextColor;
 @property (nonatomic, strong) UIColor *navigationBarTintColor;
 @property (nonatomic, strong) NSString *pickerFontName;
@@ -164,6 +169,7 @@ static CGSize const kPopoverContentSize = {480, 720};
 @property (nonatomic) CGFloat pickerFontHeaderSize;
 @property (nonatomic) UIStatusBarStyle pickerStatusBarStyle;
 @property (nonatomic) BOOL useCustomFontForNavigationBar;
+@property (nonatomic) BOOL arrangeSmartCollectionsFirst;
 
 /**
  * A reference to the navigation controller used to manage the whole picking process

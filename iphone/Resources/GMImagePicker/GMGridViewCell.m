@@ -7,7 +7,7 @@
 //
 
 #import "GMGridViewCell.h"
-
+#import "TiBundle.h"
 
 @interface GMGridViewCell ()
 @end
@@ -27,9 +27,9 @@ static UIColor *disabledColor;
 {
     titleFont       = [UIFont systemFontOfSize:12];
     titleHeight     = 20.0f;
-    videoIcon       = [UIImage imageNamed:@"GMImagePickerVideo"];
+    videoIcon       = [UIImage imageNamed:@"GMImagePickerVideo" inBundle:TIBundle compatibleWithTraitCollection:nil];
     titleColor      = [UIColor whiteColor];
-    checkedIcon     = [UIImage imageNamed:@"CTAssetsPickerChecked"];
+    checkedIcon     = [UIImage imageNamed:@"CTAssetsPickerChecked" inBundle:TIBundle compatibleWithTraitCollection:nil];
     selectedColor   = [UIColor colorWithWhite:1 alpha:0.3];
     disabledColor   = [UIColor colorWithWhite:1 alpha:0.9];
 }
@@ -85,7 +85,7 @@ static UIColor *disabledColor;
         _videoIcon = [UIImageView new];
         _videoIcon.frame = CGRectMake(x_offset, self.bounds.size.height-titleHeight, self.bounds.size.width-2*x_offset, titleHeight);
         _videoIcon.contentMode = UIViewContentModeLeft;
-        _videoIcon.image = [UIImage imageNamed:@"GMVideoIcon" inBundle:[NSBundle bundleForClass:GMGridViewCell.class] compatibleWithTraitCollection:nil];
+        _videoIcon.image = [UIImage imageNamed:@"GMVideoIcon" inBundle:TIBundle compatibleWithTraitCollection:nil];
         _videoIcon.translatesAutoresizingMaskIntoConstraints = NO;
         _videoIcon.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         [self addSubview:_videoIcon];
@@ -117,7 +117,7 @@ static UIColor *disabledColor;
         [_selectedButton setImage:nil forState:UIControlStateNormal];
         _selectedButton.translatesAutoresizingMaskIntoConstraints = NO;
         _selectedButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        [_selectedButton setImage:[UIImage imageNamed:@"GMSelected" inBundle:[NSBundle bundleForClass:GMGridViewCell.class] compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
+        [_selectedButton setImage:[UIImage imageNamed:@"GMSelected" inBundle:TIBundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
         _selectedButton.hidden = NO;
         _selectedButton.userInteractionEnabled = NO;
         [self addSubview:_selectedButton];
