@@ -10,7 +10,7 @@ https://github.com/guillermomuntaner/GMImagePicker
 ![Screenshot](GMImagePickerDemo.gif "Screenshot")  
 
 ### Features
-1. Allows selection of multiple photos and videos, even from different albums.
+1. Allows selection of multiple photos ~~and videos~~ **TODO**, even from different albums.
 2. Optional single selection mode.
 3. Optional camera access.
 4. Optional bottom toolbar with information about users selection.
@@ -21,7 +21,7 @@ https://github.com/guillermomuntaner/GMImagePicker
 9. By default mimics UIImagePickerController in terms of features, appearance and behaviour.
 10. Dynamically sized grid view, easy to customize and fully compatible with iPhone 6/6+ and iPad.
 11. Works in landscape orientation and allow screen rotation!
-12. It can be used as Popover on iPad, with customizable size.
+12. ~~It can be used as Popover on iPad, with customizable size.~~ **TODO**
 13. Fast & small memory footprint powered by PHCachingImageManager.
 14. Full adoption of new iOS8 **PhotoKit**. Returns and array of PHAssets.
 
