@@ -15,4 +15,4 @@ name: TiGMImagePicker
 moduleid: ti.gmimagepicker
 guid: db2c80c4-3948-4006-b3f7-b3c46dcde744
 platform: iphone
-minsdk: 5.4.0.GA
+minsdk: 5.1.2.GA
