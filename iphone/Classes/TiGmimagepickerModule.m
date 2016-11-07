@@ -294,7 +294,7 @@ enum
         
         [alert addAction:action];
         
-        [_picker presentViewController:alert animated:YES completion:nil];
+        [_picker presentViewController:alert animated:NO completion:nil];
     }
     
     // limit selection to max
