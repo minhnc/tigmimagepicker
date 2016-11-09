@@ -17,6 +17,7 @@
         KrollCallback *pickerSuccessCallback;
         KrollCallback *pickerErrorCallback;
         KrollCallback *pickerCancelCallback;
+//        KrollCallback *pickerReachMaxCallback;
 }
 
 @end

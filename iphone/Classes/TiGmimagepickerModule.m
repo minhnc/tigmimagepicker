@@ -178,6 +178,7 @@ enum
     
     // [self showViewController:picker sender:nil];
     [[TiApp app] showModalController:picker animated:YES];
+//    [[[[TiApp app] controller] topPresentedController] presentViewController:picker animated:YES completion:nil];
     
 }
 
@@ -197,6 +198,10 @@ enum
         pickerCancelCallback = [args objectForKey:@"cancel"];
         ENSURE_TYPE_OR_NIL(pickerCancelCallback,KrollCallback);
         [pickerCancelCallback retain];
+        
+        // pickerReachMaxCallback = [args objectForKey:@"reachMax"];
+        // ENSURE_TYPE_OR_NIL(pickerReachMaxCallback,KrollCallback);
+        // [pickerReachMaxCallback retain];
     }
     
     maxSelectablePhotos = [TiUtils intValue:@"maxSelectablePhotos" properties:args def:-1];
@@ -208,6 +213,7 @@ enum
     RELEASE_TO_NIL(pickerSuccessCallback);
     RELEASE_TO_NIL(pickerErrorCallback);
     RELEASE_TO_NIL(pickerCancelCallback);
+    // RELEASE_TO_NIL(pickerReachMaxCallback);
 }
 
 -(void)dispatchCallback:(NSArray*)args
@@ -282,6 +288,8 @@ enum
     // show alert gracefully
     if (_picker.selectedAssets.count >= maxSelectablePhotos)
     {
+        // Alert - cause photos zoom in
+        /*
         UIAlertController *alert =
         [UIAlertController alertControllerWithTitle:@"Sorry"
                                     message:[NSString stringWithFormat:@"You can select maximum %ld photos.", (long)maxSelectablePhotos]
@@ -295,6 +303,24 @@ enum
         [alert addAction:action];
         
         [_picker presentViewController:alert animated:NO completion:nil];
+        // [[[[TiApp app] controller] topPresentedController] presentViewController:alert animated:YES completion:nil];
+        */
+        
+        // Use callback - still cause photo zoom in
+        /*
+        id listener = [[pickerReachMaxCallback retain] autorelease];
+        if (listener!=nil)
+        {
+            
+            NSMutableDictionary * event = [TiUtils dictionaryWithCode:-1 message:[NSString stringWithFormat:@"You can select maximum %ld photos.", (long)maxSelectablePhotos]];
+            
+#ifdef TI_USE_KROLL_THREAD
+            [NSThread detachNewThreadSelector:@selector(dispatchCallback:) toTarget:self withObject:[NSArray arrayWithObjects:@"reachMax",event,listener,nil]];
+#else
+            [self dispatchCallback:@[@"reachMax",event,listener]];
+#endif
+        }
+         */
     }
     
     // limit selection to max
