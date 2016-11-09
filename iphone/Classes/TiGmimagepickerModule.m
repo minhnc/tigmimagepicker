@@ -139,6 +139,8 @@ enum
         picker.colsInLandscape = 5;
         picker.minimumInteritemSpacing = 2.0;
         
+        picker.maxSelectableAssets = maxSelectablePhotos;
+        
         picker.allowsMultipleSelection = [TiUtils boolValue:@"allowMultiple" properties:args def:true];
         //    picker.confirmSingleSelection = YES;
         //    picker.confirmSingleSelectionPrompt = @"Do you want to select the image you have chosen?";
@@ -285,11 +287,12 @@ enum
 {    
     if (maxSelectablePhotos == -1) return true;
     
-    // show alert gracefully
+    // show alert gracefully - but cause zoom in issue
+    /*
     if (_picker.selectedAssets.count >= maxSelectablePhotos)
     {
         // Alert - cause photos zoom in
-        /*
+        
         UIAlertController *alert =
         [UIAlertController alertControllerWithTitle:@"Sorry"
                                     message:[NSString stringWithFormat:@"You can select maximum %ld photos.", (long)maxSelectablePhotos]
@@ -304,24 +307,8 @@ enum
         
         [_picker presentViewController:alert animated:NO completion:nil];
         // [[[[TiApp app] controller] topPresentedController] presentViewController:alert animated:YES completion:nil];
-        */
-        
-        // Use callback - still cause photo zoom in
-        /*
-        id listener = [[pickerReachMaxCallback retain] autorelease];
-        if (listener!=nil)
-        {
-            
-            NSMutableDictionary * event = [TiUtils dictionaryWithCode:-1 message:[NSString stringWithFormat:@"You can select maximum %ld photos.", (long)maxSelectablePhotos]];
-            
-#ifdef TI_USE_KROLL_THREAD
-            [NSThread detachNewThreadSelector:@selector(dispatchCallback:) toTarget:self withObject:[NSArray arrayWithObjects:@"reachMax",event,listener,nil]];
-#else
-            [self dispatchCallback:@[@"reachMax",event,listener]];
-#endif
-        }
-         */
-    }
+     }
+     */
     
     // limit selection to max
     return (_picker.selectedAssets.count < maxSelectablePhotos);

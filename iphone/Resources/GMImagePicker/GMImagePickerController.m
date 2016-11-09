@@ -38,6 +38,9 @@
         _colsInLandscape = 5;
         _minimumInteritemSpacing = 2.0;
         
+        // max selectable photos
+        _maxSelectableAssets = -1;
+        
         // Sample of how to select the collections you want to display:
         _customSmartCollections = @[@(PHAssetCollectionSubtypeSmartAlbumFavorites),
                                     @(PHAssetCollectionSubtypeSmartAlbumRecentlyAdded),
@@ -250,6 +253,11 @@
     
     if (nImages > 0 && nVideos > 0) {
         return [NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.selection.multiple-items",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Items Selected" ), @(nImages + nVideos)];
+    } else if ( _maxSelectableAssets > -1 && nImages >= _maxSelectableAssets) {
+        
+        return [NSString stringWithFormat:@"You can select maximum %d %@", _maxSelectableAssets,
+                                                    _maxSelectableAssets > 1 ? @"photos": @"photo"];
+        
     } else if (nImages > 1) {
         return [NSString stringWithFormat:TINSLocalizedStringFromTableInBundle(@"picker.selection.multiple-photos",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"%@ Photos Selected"), @(nImages)];
     } else if (nImages == 1) {
@@ -299,8 +307,13 @@
 }
 
 - (NSDictionary *)toolbarTitleTextAttributes {
-    return @{NSForegroundColorAttributeName : _toolbarTextColor,
-             NSFontAttributeName : [UIFont fontWithName:_pickerFontName size:_pickerFontHeaderSize]};
+    if ( _maxSelectableAssets > -1 && self.selectedAssets.count >= _maxSelectableAssets) {
+        return @{NSForegroundColorAttributeName : [UIColor redColor],
+                 NSFontAttributeName : [UIFont fontWithName:_pickerFontName size:_pickerFontHeaderSize]};
+    } else {
+        return @{NSForegroundColorAttributeName : _toolbarTextColor,
+                 NSFontAttributeName : [UIFont fontWithName:_pickerFontName size:_pickerFontHeaderSize]};
+    }
 }
 
 - (UIBarButtonItem *)titleButtonItem
