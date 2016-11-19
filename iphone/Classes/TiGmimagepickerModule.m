@@ -116,6 +116,19 @@ enum
 
 -(void)showPicker:(NSDictionary*)args isCamera:(BOOL)isCamera
 {
+    // Check if user has grant to access photos
+    NSInteger status = [PHPhotoLibrary authorizationStatus];
+    
+    if ( status == PHAuthorizationStatusDenied || status == PHAuthorizationStatusRestricted ) {
+        
+        UIImagePickerController *p = [[UIImagePickerController alloc] init];
+        p.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        p.modalPresentationStyle = UIModalPresentationPopover;
+        
+        [[TiApp app] showModalController:p animated:YES];
+        return;
+    }
+    
     if (picker!=nil)
     {
         [self sendPickerError:MediaModuleErrorBusy];

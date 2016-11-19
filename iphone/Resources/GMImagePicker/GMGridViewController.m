@@ -126,7 +126,11 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
         self.navigationItem.prompt = self.picker.customNavigationBarPrompt;
     }
     
-    self.imageManager = [[PHCachingImageManager alloc] init];
+    // Fix "This application is not allowed to access Photo data."
+    if ( [PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized ) {
+        self.imageManager = [[PHCachingImageManager alloc] init];
+    }
+    
     [self resetCachedAssets];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
