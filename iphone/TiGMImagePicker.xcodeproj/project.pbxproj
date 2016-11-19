@@ -61,7 +61,7 @@
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TiGMImagePicker;
+			remoteInfo = "TiGMImagePicker";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -98,7 +98,7 @@
 		BABE70561D8BA2D5002CED0B /* TiGmimagepickerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiGmimagepickerModule.m; path = Classes/TiGmimagepickerModule.m; sourceTree = SOURCE_ROOT; };
 		BABE70571D8BA2D5002CED0B /* TiGmimagepickerModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiGmimagepickerModuleAssets.h; path = Classes/TiGmimagepickerModuleAssets.h; sourceTree = SOURCE_ROOT; };
 		BABE70591D8BA2D5002CED0B /* TiGmimagepickerModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiGmimagepickerModuleAssets.m; path = Classes/TiGmimagepickerModuleAssets.m; sourceTree = SOURCE_ROOT; };
-		D2AAC07E0554694100DB518D /* libTiGmimageicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTiGmimageicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC07E0554694100DB518D /* libti.gmimagepicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libti.gmimagepicker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC07E0554694100DB518D /* libTiGmimageicker.a */,
+				D2AAC07E0554694100DB518D /* libti.gmimagepicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,7 +130,7 @@
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
-			name = TiGMImagePicker;
+			name = "TiGMImagePicker";
 			sourceTree = "<group>";
 		};
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
@@ -288,9 +288,9 @@
 			);
 			dependencies = (
 			);
-			name = TiGMImagePicker;
-			productName = TiGMImagePicker;
-			productReference = D2AAC07E0554694100DB518D /* libTiGmimageicker.a */;
+			name = "TiGMImagePicker";
+			productName = "TiGMImagePicker";
+			productReference = D2AAC07E0554694100DB518D /* libti.gmimagepicker.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -462,11 +462,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DSTROOT = /tmp/TiGmimagepicker.dst;
+				DSTROOT = "/tmp/TiGmimagepicker.dst";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TiGmimagepicker_Prefix.pch;
+				GCC_PREFIX_HEADER = "TiGmimagepicker_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = "";
@@ -486,7 +486,7 @@
 					"-DTI_POST_1_2",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = TiGmimageicker;
+				PRODUCT_NAME = "ti.gmimagepicker";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -502,11 +502,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				DSTROOT = /tmp/TiGmimagepicker.dst;
+				DSTROOT = "/tmp/TiGmimagepicker.dst";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TiGmimagepicker_Prefix.pch;
+				GCC_PREFIX_HEADER = "TiGmimagepicker_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = "";
@@ -523,7 +523,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DTI_POST_1_2";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = TiGmimageicker;
+				PRODUCT_NAME = "ti.gmimagepicker";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -537,11 +537,11 @@
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DSTROOT = /tmp/TiGmimageicker.dst;
+				DSTROOT = "/tmp/TiGmimagepicker.dst";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TiGmimagepicker_Prefix.pch;
+				GCC_PREFIX_HEADER = "TiGmimagepicker_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = "";
@@ -560,7 +560,7 @@
 					"-DTI_POST_1_2",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = TiGmimageicker;
+				PRODUCT_NAME = "ti.gmimagepicker";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -575,11 +575,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LIBRARY = "libstdc++";
-				DSTROOT = /tmp/TiGmimageicker.dst;
+				DSTROOT = "/tmp/TiGmimagepicker.dst";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TiGmimagepicker_Prefix.pch;
+				GCC_PREFIX_HEADER = "TiGmimagepicker_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = "";
@@ -595,7 +595,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DTI_POST_1_2";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = TiGmimageicker;
+				PRODUCT_NAME = "ti.gmimagepicker";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
