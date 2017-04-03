@@ -148,7 +148,7 @@ enum
 //        picker.customCancelButtonTitle = @"Nope";
 //        picker.customNavigationBarPrompt = @"Take a new photo or select an existing one!";
         
-        picker.colsInPortrait = 3;
+        picker.colsInPortrait = 4;
         picker.colsInLandscape = 5;
         picker.minimumInteritemSpacing = 2.0;
         
